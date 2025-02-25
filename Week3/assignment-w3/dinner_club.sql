@@ -1,15 +1,31 @@
 CREATE TABLE Members (
     member_id INT PRIMARY KEY,
-    member_name VARCHAR(100),
-    member_address VARCHAR(255)
+    member_name VARCHAR(100)
 );
 
-INSERT INTO Members VALUES (1, 'Amit', '325 Max park');
-INSERT INTO Members VALUES (2, 'Ben', '24 Hudson lane');
-INSERT INTO Members VALUES (3, 'Cristina', '516 6th Ave');
-INSERT INTO Members VALUES (4, 'Dan', '89 John St');
-INSERT INTO Members VALUES (5, 'Gabor', '54 Vivaldi St');
-INSERT INTO Members VALUES (6, 'Hema', '9 Peter St');
+
+CREATE TABLE Addresses (
+    address_id INT AUTO_INCREMENT PRIMARY KEY,
+    member_id INT,
+    street VARCHAR(100),
+    city VARCHAR(100),
+    postal_code VARCHAR(20),
+    FOREIGN KEY (member_id) REFERENCES Members(member_id)
+);
+
+INSERT INTO Members (member_id, member_name) VALUES (1, 'Amit');
+INSERT INTO Members (member_id, member_name) VALUES (2, 'Ben');
+INSERT INTO Members (member_id, member_name) VALUES (3, 'Cristina');
+INSERT INTO Members (member_id, member_name) VALUES (4, 'Dan');
+INSERT INTO Members (member_id, member_name) VALUES (5, 'Gabor');
+INSERT INTO Members (member_id, member_name) VALUES (6, 'Hema');
+
+INSERT INTO Addresses (member_id, street, city, postal_code) VALUES (1, '325 Max park', 'City1', '12345');
+INSERT INTO Addresses (member_id, street, city, postal_code) VALUES (2, '24 Hudson lane', 'City2', '23456');
+INSERT INTO Addresses (member_id, street, city, postal_code) VALUES (3, '516 6th Ave', 'City3', '34567');
+INSERT INTO Addresses (member_id, street, city, postal_code) VALUES (4, '89 John St', 'City4', '45678');
+INSERT INTO Addresses (member_id, street, city, postal_code) VALUES (5, '54 Vivaldi St', 'City5', '56789');
+INSERT INTO Addresses (member_id, street, city, postal_code) VALUES (6, '9 Peter St', 'City6', '67890');
 
 
 CREATE TABLE Venues (
@@ -31,7 +47,6 @@ CREATE TABLE Dinners (
     FOREIGN KEY (venue_code) REFERENCES Venues(venue_code)
 );
 
-
 INSERT INTO Dinners VALUES ('D00001001', '2020-03-15', 'B01');
 INSERT INTO Dinners VALUES ('D00001002', '2020-03-15', 'B02');
 INSERT INTO Dinners VALUES ('D00001003', '2020-03-20', 'B03');
@@ -44,7 +59,6 @@ CREATE TABLE Food (
     food_code VARCHAR(10) PRIMARY KEY,
     food_description VARCHAR(255)
 );
-
 
 INSERT INTO Food VALUES ('C1', 'Curry');
 INSERT INTO Food VALUES ('C2', 'Cake');
@@ -64,7 +78,6 @@ CREATE TABLE DinnerFood (
     FOREIGN KEY (dinner_id) REFERENCES Dinners(dinner_id),
     FOREIGN KEY (food_code) REFERENCES Food(food_code)
 );
-
 
 INSERT INTO DinnerFood VALUES ('D00001001', 'C1');
 INSERT INTO DinnerFood VALUES ('D00001001', 'C2');
@@ -86,7 +99,6 @@ CREATE TABLE Attendance (
     FOREIGN KEY (member_id) REFERENCES Members(member_id),
     FOREIGN KEY (dinner_id) REFERENCES Dinners(dinner_id)
 );
-
 
 INSERT INTO Attendance VALUES (1, 'D00001001');
 INSERT INTO Attendance VALUES (2, 'D00001002');
